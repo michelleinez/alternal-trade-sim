@@ -5,6 +5,9 @@ var connection = new autobahn.Connection({
       realm: "realm1"
 });
 
+// get this from trading_bot.js
+var myBot = {};
+
 connection.onopen = function (session) {
 		function marketEvent (args, kwargs) {
 			console.log('market event:');
@@ -16,6 +19,7 @@ connection.onopen = function (session) {
 		function tickerEvent (args, kwargs) {
 			console.log('ticker event:');
 					console.log(args);
+			myBot.sensor(args);
 		}
 
 		function trollboxEvent (args, kwargs) {

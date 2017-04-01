@@ -3,42 +3,37 @@
 
 module.export({
   this.sensor = function(update){
-    if (update.symbol in this.targets)
-    {
-      this.maybeTrade(update);
-    }
-  },
-  this.targets = {
-    // Example: if BTC goes above 2000 USD, issue a sell order at 1999 USD for half of our holdings
-    'BTC': {
-      action:'sell',
-      threshold: 2000,
-      currency: 'USD',
-      condition: 'above',
-      // this can depend on lots of stuff, just an example
-      price: 1999,
-      proportion: 0.5,
-    },
-    
+      if (update.symbol in this.memory) {
+        this.updateMemory(update);
+        this.decide(this.memory[update.symbol]);
+      }
   },
   this.holdings = {
-    // TODO: these need to be BigNumbers due to precision errors!
+    // TODO: these need to be BigNumbers due to precision errors in js!
     'BTC': 2,
     'ETH': 10,
-  }
-  this.maybeTrade = function(update) {
-    order = this.targets[update.symbol];
-    if (order.condition == 'above') {
-      if (update.price >= order.threshold) {
-        // place trade with api
-      }
-    } else if (order.condition == 'below') {
-      if (update.price <= order.threshold) {
-        // place trade with api
-      }
-    } else {
-      console.error('waht');
-    }
   },
+  this.memory = {
+    'BTC' : {
+      '2_week_avg' : 0,
+      '1_week_avg' : 0,
+      '3_day_avg' : 0,
+      '1_day_avg' : 0,
+      '12_hour_avg' : 0,
+      '6_hour_avg' : 0,
+      '3_hour_avg' : 0,
+      '1_hour_avg' : 0,
+      'last_price' : 0,
+      'complicated_formula': 0,
+    },
+    'ETH': {}
+    // ...
+  },
+  this.updateMemory = function(update) {
+    // update this.memory with the data
+  },
+  this.decide = function(data) {
+    // maybe execute a trade
+  }
 
 });
