@@ -6,7 +6,7 @@ define([
 ], function (_, Backbone) {
 	'use strict';
 
-	var Todo = Backbone.Model.extend({
+	var altcoinModel = Backbone.Model.extend({
 		// Default attributes for the todo
 		// and ensure that each todo created has `title` and `completed` keys.
 		defaults: {
@@ -21,5 +21,5 @@ define([
 		}
 	});
 
-	return Todo;
+	return altcoinModel;
 });

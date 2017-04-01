@@ -6,25 +6,30 @@ var connection = new autobahn.Connection({
 });
 
 connection.onopen = function (session) {
-		function marketEvent (args,kwargs) {
-		console.log('market event:');
-		console.log(args);
-						}
-			function tickerEvent (args,kwargs) {
-				console.log('ticker event:');
-						console.log(args);
-							}
-				function trollboxEvent (args,kwargs) {
-					console.log('trollbox event:');
-							console.log(args);
-								}
-					session.subscribe('BTC_XMR', marketEvent);
-						session.subscribe('ticker', tickerEvent);
-							session.subscribe('trollbox', trollboxEvent);
+		function marketEvent (args, kwargs) {
+			console.log('market event:');
+			console.log(args);
+			console.log('market event kwargs:');
+			console.log(kwargs);
+		}
+
+		function tickerEvent (args, kwargs) {
+			console.log('ticker event:');
+					console.log(args);
+		}
+
+		function trollboxEvent (args, kwargs) {
+			console.log('trollbox event:');
+			console.log(args);
+		}
+
+		session.subscribe('BTC_XMR', marketEvent);
+		session.subscribe('ticker', tickerEvent);
+		session.subscribe('trollbox', trollboxEvent);
 }
 
 connection.onclose = function () {
-	  console.log("Websocket connection closed");
+	console.log("Websocket connection closed");
 }
 
 connection.open();
