@@ -6,7 +6,7 @@ var app = express();
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, './backbone_require')));
+app.use(express.static(path.join(__dirname, './modular-backbone')));
 
 require('./server/config/mongoose.js');
 require('./server/config/routes.js')(app);
