@@ -13,11 +13,14 @@ define([
 			title: '',
 			tickerSymbol: false
 		},
+		
+		url : function() {
+			return 'https://poloniex.com/public?command=returnTicker';
+		},
 
-		parse : function(res) {
-        // because of jsonp
-	        return res.data;
-	    },
+		parse: function(res) {
+	    return res;
+	  },
 
 		setTickerSymbol: function (tickerSymbol) {
 			this.save({

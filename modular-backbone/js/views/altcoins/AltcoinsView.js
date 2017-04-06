@@ -2,17 +2,13 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'collections/contributors/ContributorsCollection',
-  'collections/altcoins/AltcoinsCollection',
-  'views/contributors/ContributorsListView',
+  'models/altcoin/AltcoinModel',
   'text!templates/altcoins/altcoinsTemplate.html'
 ], function(
     $,
     _,
     Backbone,
-    ContributorsCollection,
-    AltcoinsCollection,
-    ContributorsListView,
+    AltcoinModel,
     altcoinsTemplate
 ){
 
@@ -23,24 +19,26 @@ define([
     el: $("#page"),
 
     initialize:function() {
+      this.altcoinModel = new AltcoinModel([]);
       var that = this;
-
       var onDataHandler = function(collection) {
           that.render();
       }
-
-      this.collection = new AltcoinsCollection([]);
-      this.collection.fetch({ success : onDataHandler, dataType: "json" });
+      this.altcoinModel.fetch({ success : onDataHandler, dataType: "json" });
     },
 
     render: function(){
-        $('.menu li').removeClass('active');
-        $('.menu li a[href="'+window.location.hash+'"]').parent().addClass('active');
-        altcoins = this.collection.models
-        var data = {
-          altcoins: altcoins
+      $('.menu li').removeClass('active');
+      $('.menu li a[href="'+window.location.hash+'"]').parent().addClass('active');
+      var altcoins = this.altcoinModel.attributes;
+      _.each(altcoins, function(coinData, altcoin) {
+        console.log(altcoin);
+        console.log(coinData);
+      });
+      var data = {
+        altcoins: altcoins
       }
-
+      console.log("data = ", data);
       // main view
       var compiledTemplate = _.template( altcoinsTemplate, data );
       this.$el.html( compiledTemplate );

@@ -1,6 +1,21 @@
 hello!!!!
-<%= data.altcoins[0] %>
-<%= data.altcoins[1] %>
-<%= data.altcoins[2] %>
-<%= data.altcoins[3] %>
-<%= data.altcoins[4] %>
+<table>
+  <thead>
+    <th>Coin Name</th>
+  </thead>
+  <tbody>
+    <td>
+      <%= coinData.baseVolume %>
+    </td>
+    <td>
+      <%= coinData.high24hr %>
+    </td>
+    <td>
+      <%= coinData.highestBid %>
+    </td>
+  </tbody>
+<% _.each(altcoins, function(coinData, altcoin) { %>
+  
+  Altcoin: <%= altcoin %>
+  Coin Data: <%= coinData %>
+<% }); %>
